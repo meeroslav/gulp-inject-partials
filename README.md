@@ -17,8 +17,6 @@ npm install --save-dev gulp-inject-partials (**not yet there**)
 
 ## Basic usage
 
-**Target file `index.html`:**
-
 Each pair of comments are the injection placeholders (aka. tags, see [`options.start`](#optionsstart) and [`options.end`](#optionsend)).
 
 **index.html**
