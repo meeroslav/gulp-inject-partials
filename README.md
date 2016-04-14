@@ -2,7 +2,8 @@
 
 > A recursive injection of partials based on their path name for [gulp](https://github.com/wearefractal/gulp).
 
-`gulp-inject-partials` parses target file, located defined placeholders and injects file contents based on their relative path. See [Basic usage](#basic-usage) and [More examples](#more-examples) below.
+**Gulp-inject-partials** parses target file, located defined placeholders and injects file contents based on their relative path. See [Basic usage](#basic-usage) and [More examples](#more-examples) below.
+Gulp-inject-partials is based/inspired by [`gulp-inject`](https://github.com/klei/gulp-inject).
 
 **Note:** NodeJs v4 or above is required.
 
@@ -18,7 +19,7 @@ npm install --save-dev gulp-inject-partials (**not yet there**)
 
 **Target file `index.html`:**
 
-Each pair of comments are the injection placeholders (aka. tags, see [`options.starttag`](#optionsstarttag) and [`options.endtag`](#optionsendtag)).
+Each pair of comments are the injection placeholders (aka. tags, see [`options.start`](#optionsstart) and [`options.end`](#optionsend)).
 
 **index.html**
 ```html
