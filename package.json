@@ -1,0 +1,39 @@
+{
+  "name": "gulp-inject-partials",
+  "version": "0.0.1",
+  "description": "A recursive injection of partials based on their path name for gulp",
+  "keywords": [
+    "gulpplugin",
+    "inject",
+    "partials",
+    "index"
+  ],
+  "homepage": "https://github.com/meeroslav/gulp-inject-partials",
+  "bugs": "https://github.com/meeroslav/gulp-inject-partials/issues",
+  "author": {
+    "name": "Miroslav Jonas",
+    "email": "meeroslav@yahoo.com"
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/meeroslav/gulp-inject-partials.git"
+  },
+  "scripts": {
+    "test": "mocha -R spec src/**/*.spec.js"
+  },
+  "dependencies": {
+    "through2": "^2.0.1",
+    "gulp-util": "^3.0.0",
+    "escape-string-regexp": "^1.0.5",
+    "event-stream": "^3.1.0"
+  },
+  "devDependencies": {
+    "mocha": "~2.0.1",
+    "should": "^4.0.4"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "license": "MIT"
+}
