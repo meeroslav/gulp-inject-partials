@@ -11,12 +11,12 @@
 Install `gulp-inject-partials` as a development dependancy:
 
 ```shell
-npm install --save-dev gulp-inject-partials
+npm install --save-dev gulp-inject-partials (**not yet there**)
 ```
 
 ## Basic usage
 
-** Target file `index.html`:**
+**Target file `index.html`:**
 
 Each pair of comments are the injection placeholders (aka. tags, see [`options.starttag`](#optionsstarttag) and [`options.endtag`](#optionsendtag)).
 
@@ -47,6 +47,21 @@ gulp.task('index', function () {
     .pipe(gulp.dest('./src'));
 });
 ```
+
+## More examples
+
+### Injecting nested partials
+Example goes here...
+
+### Setting the custom `start` and/or `end` tag
+Example goes here...
+
+### Remove tags after insertion
+Example goes here...
+
+## Options
+
+List of options goes here...
 
 ## License
 
