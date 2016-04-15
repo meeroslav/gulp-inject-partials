@@ -7,6 +7,9 @@ var escapeStringRegexp = require('escape-string-regexp');
 var magenta = gutil.colors.magenta;
 var cyan = gutil.colors.cyan;
 
+/**
+ * Constants
+ */
 var PLUGIN_NAME = 'gulp-inject-partials';
 var DEFAULT_START = '<!-- partial:{{path}} -->';
 var DEFAULT_END = '<!-- partial -->';
@@ -22,6 +25,7 @@ module.exports = function(opt) {
 	opt.removeTags = bool(opt, 'removeTags', false);
 	opt.quiet = bool(opt, 'quiet', false);
 
+	// Handle injection of files
 	function handleStream(target, encoding, cb){
 		if (target.isNull()) {
 			return cb(null, target);
@@ -45,6 +49,16 @@ module.exports = function(opt) {
 	return through.obj(handleStream);
 };
 
+/**
+ * Parse content and create new template
+ * with all injections made
+ *
+ * @param {Object} target
+ * @param {Object} opt
+ * @param {Object} tagsRegExp
+ * @param {Array} listOfFiles
+ * @returns {Buffer}
+ */
 function processContent(target, opt, tagsRegExp, listOfFiles){
 	var targetContent = String(target.contents);
 	var targetPath = target.path;
@@ -66,38 +80,48 @@ function processContent(target, opt, tagsRegExp, listOfFiles){
 	return new Buffer(targetContent);
 }
 
+/**
+ * Inject tags into target content between given
+ * start and end tags
+ *
+ * @param {String} targetContent
+ * @param {String} sourceContent
+ * @param {Object} opt
+ * @param {Object} tagsRegExp
+ * @returns {String}
+ */
 function inject(targetContent, sourceContent, opt, tagsRegExp){
 	var startTag = tagsRegExp.start;
-	var endTag = tagsRegExp.end;    
+	var endTag = tagsRegExp.end;
 	var startMatch;
 	var endMatch;
 
 	while ((startMatch = startTag.exec(targetContent)) !== null) {
-		// Take care of content length change:
+		// Take care of content length change
 		endTag.lastIndex = startTag.lastIndex;
 		endMatch = endTag.exec(targetContent);
 		if (!endMatch) {
 			throw error('Missing end tag for start tag: ' + startMatch[0]);
 		}
 		var toInject = [sourceContent];
-		// <everything before startMatch>:
+		// content part before start tag 
 		var newContents = targetContent.slice(0, startMatch.index);
 		
 		if (opt.removeTags) {
-			// Take care of content length change:
+			// Take care of content length change
 			startTag.lastIndex -= startMatch[0].length;
 		} else {
-			// <startMatch> + <endMatch>
+			// <startMatch> + partial body + <endMatch>
 			toInject.unshift(startMatch[0]);
 			toInject.push(endMatch[0]);
 		}
 		var previousInnerContent = targetContent.substring(startTag.lastIndex, endMatch.index);
-		var indent = getLeadingWhitespace(previousInnerContent);   
-		// <new inner content>:
+		var indent = getLeadingWhitespace(previousInnerContent);
+		// add new content
 		newContents += toInject.join(indent);
-		// <everything after endMatch>:
+		// append rest of target file
 		newContents += targetContent.slice(endTag.lastIndex);
-		// replace old content with new:
+		// replace old content with new
 		targetContent = newContents;
 	}
 	startTag.lastIndex = 0;
@@ -105,6 +129,15 @@ function inject(targetContent, sourceContent, opt, tagsRegExp){
 	return targetContent;
 }
 
+/**
+ * Prepare regular expressions for parsing template
+ * Replace {{path}} with regular expression for matching relative path 
+ * or with exact file path 
+ *
+ * @param {Object} opt
+ * @param {String} fileUrl
+ * @returns {Object}
+ */
 function getRegExpTags(opt, fileUrl) {
 	function parseTag(tag, replacement) {
 		return new RegExp(escapeStringRegexp(tag).replace(PATH_REGEX, replacement || FILE_PATH_REGEX), 'g');
@@ -123,6 +156,15 @@ function getRegExpTags(opt, fileUrl) {
 	}
 }
 
+/**
+ * Parse content and get all partials to be injected
+ *
+ * @param {String} content
+ * @param {String} targetPath
+ * @param {Object} opt
+ * @param {Object} tagsRegExp
+ * @returns {Array}
+ */
 function extractFilePaths(content, targetPath, opt, tagsRegExp) {
 	var files = [];
 	var tagMatches;
@@ -152,6 +194,9 @@ function extractFilePaths(content, targetPath, opt, tagsRegExp) {
 	return files;
 }
 
+/////////////////////////////////////
+// HELPER FUNCTIONS
+/////////////////////////////////////
 function getLeadingWhitespace(str) {
 	return str.match(LEADING_WHITESPACE_REGEXP)[0];
 }
