@@ -1,5 +1,6 @@
 # gulp-inject-partials
 
+[![NPM version](https://www.npmjs.com/package/gulp-inject-partials.svg)](https://www.npmjs.com/package/gulp-inject-partials)
 [![Build Status](https://travis-ci.org/meeroslav/gulp-inject-partials.svg?branch=master)](https://travis-ci.org/meeroslav/gulp-inject-partials)
 [![Dependency Status](https://david-dm.org/meeroslav/gulp-inject-partials.svg)](https://david-dm.org/meeroslav/gulp-inject-partials)
 
@@ -15,7 +16,7 @@ Gulp-inject-partials is based/inspired by [`gulp-inject`](https://github.com/kle
 Install `gulp-inject-partials` as a development dependancy:
 
 ```shell
-npm install --save-dev gulp-inject-partials (**not yet there**)
+npm install --save-dev gulp-inject-partials
 ```
 
 ## Basic usage
