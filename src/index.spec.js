@@ -78,7 +78,6 @@ describe('gulp-inject-partials', function(){
 		var stream = src(['template1.html'], {read: true})
 		.pipe(injectPartials({quiet: true}));
 		
-		// Dummy data reader to make the `end` event be triggered
 		stream.on('data', function () {});
 
 		stream.on('end', function () {
@@ -90,7 +89,6 @@ describe('gulp-inject-partials', function(){
 		var stream = src(['template1.html'], {read: true})
 		.pipe(injectPartials({quiet: false}));
 		
-		// Dummy data reader to make the `end` event be triggered
 		stream.on('data', function () {});
 
 		stream.on('end', function () {

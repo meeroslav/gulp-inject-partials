@@ -39,11 +39,11 @@ module.exports = function(opt) {
 			var tagsRegExp = getRegExpTags(opt);
 			target.contents = processContent(target, opt, tagsRegExp, [target.path]);
 			this.push(target);
-			cb();
+			return cb();
 		} catch(err) {
 			this.emit('error', err);
-			cb();
-		};
+			return cb();
+		}
 	}
 
 	return through.obj(handleStream);
@@ -171,26 +171,28 @@ function extractFilePaths(content, targetPath, opt, tagsRegExp) {
 
 	// get all start matches
 	tagMatches = content.match(tagsRegExp.start);
-	tagMatches && tagMatches.forEach(function(tagMatch){
-		var fileUrl = tagsRegExp.startex.exec(tagMatch)[1];
-		var filePath = setFullPath(targetPath, fileUrl);
-		try {
-			var fileContent = fs.readFileSync(filePath);
-			files.push({
-				file: new gutil.File({
-					path: filePath,
-					cwd: __dirname,
-					base: path.resolve(__dirname, 'expected', path.dirname(filePath)),
-					contents: fileContent
-				}),
-				tags: getRegExpTags(opt, fileUrl)
-			});
-		} catch (e) {
-			throw error(filePath + " not found.");
-		}
-		// reset the regex
-		tagsRegExp.startex.lastIndex = 0;
-	});
+	if (tagMatches) {
+		tagMatches.forEach(function(tagMatch){
+			var fileUrl = tagsRegExp.startex.exec(tagMatch)[1];
+			var filePath = setFullPath(targetPath, fileUrl);
+			try {
+				var fileContent = fs.readFileSync(filePath);
+				files.push({
+					file: new gutil.File({
+						path: filePath,
+						cwd: __dirname,
+						base: path.resolve(__dirname, 'expected', path.dirname(filePath)),
+						contents: fileContent
+					}),
+					tags: getRegExpTags(opt, fileUrl)
+				});
+			} catch (e) {
+				throw error(filePath + " not found.");
+			}
+			// reset the regex
+			tagsRegExp.startex.lastIndex = 0;
+		});
+	}
 	return files;
 }
 

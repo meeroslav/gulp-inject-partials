@@ -3,6 +3,8 @@
 [![NPM version](https://img.shields.io/npm/v/gulp-inject-partials.svg)](https://npmjs.org/package/gulp-inject)
 [![Build Status](https://travis-ci.org/meeroslav/gulp-inject-partials.svg?branch=master)](https://travis-ci.org/meeroslav/gulp-inject-partials)
 [![Dependency Status](https://david-dm.org/meeroslav/gulp-inject-partials.svg)](https://david-dm.org/meeroslav/gulp-inject-partials)
+![Code Climate](https://img.shields.io/codeclimate/github/meeroslav/gulp-inject-partials.svg)
+![Code Coverage](https://img.shields.io/codeclimate/coverage/github/meeroslav/gulp-inject-partials.svg)
 
 > A recursive injection of partials based on their path name for [gulp](https://github.com/wearefractal/gulp).
 

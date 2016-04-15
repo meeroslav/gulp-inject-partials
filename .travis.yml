@@ -4,3 +4,6 @@ node_js:
   - '5'
 
 sudo: false
+addons:
+    code_climate:
+        repo_token: d31f92f44a87ebf55a759da8140c47cd119c4a9aef2d77f8d4dd1c18ec47c081
