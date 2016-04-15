@@ -1,6 +1,6 @@
 {
   "name": "gulp-inject-partials",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A recursive injection of partials based on their path name for gulp",
   "keywords": [
     "gulpplugin",
