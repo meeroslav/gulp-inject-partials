@@ -1,6 +1,6 @@
 # gulp-inject-partials
 
-[![NPM version](https://www.npmjs.com/package/gulp-inject-partials.svg)](https://www.npmjs.com/package/gulp-inject-partials)
+[![NPM version](https://img.shields.io/npm/v/gulp-inject-partials.svg)](https://npmjs.org/package/gulp-inject)
 [![Build Status](https://travis-ci.org/meeroslav/gulp-inject-partials.svg?branch=master)](https://travis-ci.org/meeroslav/gulp-inject-partials)
 [![Dependency Status](https://david-dm.org/meeroslav/gulp-inject-partials.svg)](https://david-dm.org/meeroslav/gulp-inject-partials)
 
