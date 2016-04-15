@@ -1,5 +1,8 @@
 # gulp-inject-partials
 
+[![Build Status](https://travis-ci.org/meeroslav/gulp-inject-partials.svg?branch=master)](https://travis-ci.org/meeroslav/gulp-inject-partials)
+[![Dependency Status](https://david-dm.org/meeroslav/gulp-inject-partials.svg)](https://david-dm.org/meeroslav/gulp-inject-partials)
+
 > A recursive injection of partials based on their path name for [gulp](https://github.com/wearefractal/gulp).
 
 **Gulp-inject-partials** parses target file, located defined placeholders and injects file contents based on their relative path. See [Basic usage](#basic-usage) and [More examples](#more-examples) below.
