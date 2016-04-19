@@ -74,6 +74,12 @@ describe('gulp-inject-partials', function(){
 			
 		streamShouldContain(stream, ['template4.html'], done, /Circular definition found/);
 	});
+	it('should remove any content between tags during the injection', function(done){
+		var stream = src(['template8.html'], {read: true})
+		.pipe(injectPartials());
+		
+		streamShouldContain(stream, ['template3.html'], done);
+	});	
 	it('should not produce log output if quiet option is set', function (done) {
 		var stream = src(['template1.html'], {read: true})
 		.pipe(injectPartials({quiet: true}));
