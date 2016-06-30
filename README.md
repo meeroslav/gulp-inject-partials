@@ -2,7 +2,6 @@
 
 [![NPM version](https://img.shields.io/npm/v/gulp-inject-partials.svg)](https://npmjs.org/package/gulp-inject-partials)
 [![Build Status](https://travis-ci.org/meeroslav/gulp-inject-partials.svg?branch=master)](https://travis-ci.org/meeroslav/gulp-inject-partials)
-[![Dependency Status](https://david-dm.org/meeroslav/gulp-inject-partials.svg)](https://david-dm.org/meeroslav/gulp-inject-partials)
 [![Code Climate](https://codeclimate.com/github/meeroslav/gulp-inject-partials/badges/gpa.svg)](https://codeclimate.com/github/meeroslav/gulp-inject-partials)
 
 > A recursive injection of partials based on their path name for [gulp](https://github.com/wearefractal/gulp).
@@ -97,7 +96,7 @@ Nesting partials works same way as single level injection. When injecting partia
   <!-- partial:_mypartial2.html -->
   <!-- partial -->
   <!-- partial:_mypartial3.html -->
-  <!-- partial -->  
+  <!-- partial -->
 </div>
 ```
 **views/_mypartial2.html**
@@ -112,7 +111,7 @@ Nesting partials works same way as single level injection. When injecting partia
   This text is in partial 3
 </div>
 ```
-**gulpfile.js** 
+**gulpfile.js**
 ```javascript
 var gulp = require('gulp');
 var injectPartials = require('gulp-inject-partials');
@@ -143,7 +142,7 @@ gulp.task('index', function () {
   <div>
   This text is in partial 3
 </div>
-  <!-- partial -->  
+  <!-- partial -->
 </div>
   <!-- partial -->
 </body>
@@ -262,7 +261,7 @@ gulp.task('index', function () {
 #### options.start
 Type: `String`
 Param (optional):
-  - `path` - relative path to source file 
+  - `path` - relative path to source file
 
 Default: `<!-- partial:{{path}} -->`
 

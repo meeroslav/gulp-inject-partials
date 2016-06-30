@@ -30,11 +30,11 @@ module.exports = function(opt) {
 		if (target.isNull()) {
 			return cb(null, target);
 		}
-		
+
 		if (target.isStream()) {
 			return cb(error(target.path + ': Streams not supported for target templates!'));
 		}
-		
+
 		try {
 			var tagsRegExp = getRegExpTags(opt);
 			target.contents = processContent(target, opt, tagsRegExp, [target.path]);
@@ -71,10 +71,10 @@ function processContent(target, opt, tagsRegExp, listOfFiles){
 		listOfFiles.push(fileData.file.path);
 		var content = processContent(fileData.file, opt, tagsRegExp, listOfFiles);
 		listOfFiles.pop();
-		
+
 		targetContent = inject(targetContent, String(content), opt, fileData.tags);
 	});
-	if (listOfFiles.length === 1 && !opt.quiet) {
+	if (listOfFiles.length === 1 && !opt.quiet && files.length) {
 		log(cyan(files.length) + ' partials injected into ' + magenta(targetPath) + '.');
 	}
 	return new Buffer(targetContent);
@@ -104,9 +104,9 @@ function inject(targetContent, sourceContent, opt, tagsRegExp){
 			throw error('Missing end tag for start tag: ' + startMatch[0]);
 		}
 		var toInject = [sourceContent];
-		// content part before start tag 
+		// content part before start tag
 		var newContents = targetContent.slice(0, startMatch.index);
-		
+
 		if (opt.removeTags) {
 			// Take care of content length change
 			startTag.lastIndex -= startMatch[0].length;
@@ -131,8 +131,8 @@ function inject(targetContent, sourceContent, opt, tagsRegExp){
 
 /**
  * Prepare regular expressions for parsing template
- * Replace {{path}} with regular expression for matching relative path 
- * or with exact file path 
+ * Replace {{path}} with regular expression for matching relative path
+ * or with exact file path
  *
  * @param {Object} opt
  * @param {String} fileUrl
