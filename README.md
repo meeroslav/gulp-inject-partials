@@ -290,6 +290,13 @@ Default: false
 
 When `true` gulp task will not render any information to console.
 
+#### options.prefix
+Type: `String`
+
+Default: '' (Empty string)
+
+Prefix path to prepend to every route processed e.g. `"relative/path/to/partials/"`. Note that full route is still relative.
+
 ## License
 
 [MIT](http://en.wikipedia.org/wiki/MIT_License) © [Miroslav Jonas](mailto:meeroslav@yahoo.com)
