@@ -101,7 +101,13 @@ describe('gulp-inject-partials', function(){
 			logOutput.should.have.length(1);
 			done();
 		});
-	});	
+	});
+	it('should use prefix for loading partials from common path', function (done){
+		var stream = src(['template9.html'], {read: true})
+			.pipe(injectPartials({prefix: 'partials/'}));
+
+		streamShouldContain(stream, ['template9.html'], done);
+	});
 });
 
 // helpers

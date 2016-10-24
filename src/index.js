@@ -24,6 +24,7 @@ module.exports = function(opt) {
 	opt.end = defaults(opt, 'end', DEFAULT_END);
 	opt.removeTags = bool(opt, 'removeTags', false);
 	opt.quiet = bool(opt, 'quiet', false);
+	opt.prefix = defaults(opt, 'prefix', '');
 
 	// Handle injection of files
 	function handleStream(target, encoding, cb){
@@ -174,7 +175,7 @@ function extractFilePaths(content, targetPath, opt, tagsRegExp) {
 	if (tagMatches) {
 		tagMatches.forEach(function(tagMatch){
 			var fileUrl = tagsRegExp.startex.exec(tagMatch)[1];
-			var filePath = setFullPath(targetPath, fileUrl);
+			var filePath = setFullPath(targetPath, opt.prefix + fileUrl);
 			try {
 				var fileContent = fs.readFileSync(filePath);
 				files.push({
