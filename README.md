@@ -1,8 +1,10 @@
 # gulp-inject-partials
 
-[![NPM version](https://img.shields.io/npm/v/gulp-inject-partials.svg)](https://npmjs.org/package/gulp-inject-partials)
-[![Build Status](https://travis-ci.org/meeroslav/gulp-inject-partials.svg?branch=master)](https://travis-ci.org/meeroslav/gulp-inject-partials)
-[![Code Climate](https://codeclimate.com/github/meeroslav/gulp-inject-partials/badges/gpa.svg)](https://codeclimate.com/github/meeroslav/gulp-inject-partials)
+[![NPM version][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![Coverage Status][coveralls-image]][coveralls-url]
+[![Dependency Status][depstat-image]][depstat-url]
+[![Code Climate][codeclimate-image]][codeclimate-url]
 
 > A recursive injection of partials based on their path name for [gulp](https://github.com/wearefractal/gulp).
 
@@ -301,3 +303,17 @@ Prefix path to prepend to every route processed e.g. `"relative/path/to/partials
 
 [MIT](http://en.wikipedia.org/wiki/MIT_License) © [Miroslav Jonas](mailto:meeroslav@yahoo.com)
 
+[npm-url]: https://npmjs.org/package/gulp-inject-partials
+[npm-image]: https://badge.fury.io/js/gulp-inject-partials.png
+
+[travis-url]: http://travis-ci.org/meeroslav/gulp-inject-partials
+[travis-image]: https://travis-ci.org/meeroslav/gulp-inject-partials.svg?branch=master
+
+[coveralls-url]: https://coveralls.io/r/meeroslav/gulp-inject-partials
+[coveralls-image]: https://coveralls.io/repos/meeroslav/gulp-inject-partials/badge.png
+
+[depstat-url]: https://david-dm.org/meeroslav/gulp-inject-partials
+[depstat-image]: https://david-dm.org/meeroslav/gulp-inject-partials.png
+
+[codeclimate-url]: https://codeclimate.com/github/meeroslav/gulp-inject-partials
+[codeclimate-image]: https://codeclimate.com/github/meeroslav/gulp-inject-partials/badges/gpa.svg
