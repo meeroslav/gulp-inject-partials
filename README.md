@@ -309,8 +309,8 @@ Prefix path to prepend to every route processed e.g. `"relative/path/to/partials
 [travis-url]: http://travis-ci.org/meeroslav/gulp-inject-partials
 [travis-image]: https://travis-ci.org/meeroslav/gulp-inject-partials.svg?branch=master
 
-[coveralls-url]: https://coveralls.io/r/meeroslav/gulp-inject-partials
-[coveralls-image]: https://coveralls.io/repos/meeroslav/gulp-inject-partials/badge.png
+[coveralls-url]: https://coveralls.io/github/meeroslav/gulp-inject-partials?branch=master
+[coveralls-image]: https://coveralls.io/repos/github/meeroslav/gulp-inject-partials/badge.svg?branch=master
 
 [depstat-url]: https://david-dm.org/meeroslav/gulp-inject-partials
 [depstat-image]: https://david-dm.org/meeroslav/gulp-inject-partials.png
