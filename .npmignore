@@ -1,0 +1,4 @@
+.*
+src/expected/
+src/fixtures/
+src/*.spec.js
