@@ -2,7 +2,6 @@
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
-[![Coverage Status][coveralls-image]][coveralls-url]
 [![Dependency Status][depstat-image]][depstat-url]
 [![Code Climate][codeclimate-image]][codeclimate-url]
 
@@ -261,43 +260,36 @@ gulp.task('index', function () {
 ### inject(options)
 
 #### options.start
-Type: `String`
-Param (optional):
-  - `path` - relative path to source file
-
-Default: `<!-- partial:{{path}} -->`
-
+Type: `string`  
+Param (optional): `path` - relative path to source file  
+Default: `<!-- partial:{{path}} -->`  
 Used to dynamically set starting placeholder tag, which might contain relative `path` to source file. Even thou this parameter is optional, whithout it no file would be injected.
 
 #### options.end
-Type: `String`
-Param (optional):
-  - `path` - relative path to source file
-
-Default: `<!-- partial -->`
-
+Type: `string`  
+Param (optional): `path` - relative path to source file     
+Default: `<!-- partial -->`  
 Used to dynamically set ending placeholder tag, which might contain relative `path` to source file.
 
 #### options.removeTags
-Type: `Boolean`
-
-Default: false
-
+Type: `boolean`  
+Default: false  
 When `true` the start and end tags will be removed when injecting files.
 
 #### options.quiet
-Type: `Boolean`
-
-Default: false
-
+Type: `boolean`  
+Default: false  
 When `true` gulp task will not render any information to console.
 
 #### options.prefix
-Type: `String`
+Type: `string`  
+Default: (Empty string)  
+Prefix path to prepend to every route processed e.g. `relative/path/to/partials/`. Note that full route is still relative.
 
-Default: '' (Empty string)
-
-Prefix path to prepend to every route processed e.g. `"relative/path/to/partials/"`. Note that full route is still relative.
+#### options.ignoreError
+Type: 'boolean'
+Default: false
+When `true` ignores missing files during the injection and shows just info message 
 
 ## License
 
@@ -308,9 +300,6 @@ Prefix path to prepend to every route processed e.g. `"relative/path/to/partials
 
 [travis-url]: http://travis-ci.org/meeroslav/gulp-inject-partials
 [travis-image]: https://travis-ci.org/meeroslav/gulp-inject-partials.svg?branch=master
-
-[coveralls-url]: https://coveralls.io/github/meeroslav/gulp-inject-partials?branch=master
-[coveralls-image]: https://coveralls.io/repos/github/meeroslav/gulp-inject-partials/badge.svg?branch=master
 
 [depstat-url]: https://david-dm.org/meeroslav/gulp-inject-partials
 [depstat-image]: https://david-dm.org/meeroslav/gulp-inject-partials.png

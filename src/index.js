@@ -6,6 +6,7 @@ var fs = require('fs');
 var escapeStringRegexp = require('escape-string-regexp');
 var magenta = gutil.colors.magenta;
 var cyan = gutil.colors.cyan;
+var red = gutil.colors.red;
 
 /**
  * Constants
@@ -25,9 +26,16 @@ module.exports = function(opt) {
 	opt.removeTags = bool(opt, 'removeTags', false);
 	opt.quiet = bool(opt, 'quiet', false);
 	opt.prefix = defaults(opt, 'prefix', '');
+	opt.ignoreError = bool(opt, 'ignoreError', false);
 
-	// Handle injection of files
-	function handleStream(target, encoding, cb){
+  /**
+   * Handle injection of files
+   * @param target
+   * @param encoding
+   * @param cb
+   * @returns {*}
+   */
+  function handleStream(target, encoding, cb){
 		if (target.isNull()) {
 			return cb(null, target);
 		}
@@ -37,7 +45,7 @@ module.exports = function(opt) {
 		}
 
 		try {
-			var tagsRegExp = getRegExpTags(opt);
+			var tagsRegExp = getRegExpTags(opt, null);
 			target.contents = processContent(target, opt, tagsRegExp, [target.path]);
 			this.push(target);
 			return cb();
@@ -159,7 +167,6 @@ function getRegExpTags(opt, fileUrl) {
 
 /**
  * Parse content and get all partials to be injected
- *
  * @param {String} content
  * @param {String} targetPath
  * @param {Object} opt
@@ -188,7 +195,11 @@ function extractFilePaths(content, targetPath, opt, tagsRegExp) {
 					tags: getRegExpTags(opt, fileUrl)
 				});
 			} catch (e) {
-				throw error(filePath + " not found.");
+			  if (opt.ignoreError) {
+          log(red(filePath + ' not found.'));
+        } else {
+          throw error(filePath + ' not found.');
+        }
 			}
 			// reset the regex
 			tagsRegExp.startex.lastIndex = 0;
@@ -200,26 +211,53 @@ function extractFilePaths(content, targetPath, opt, tagsRegExp) {
 /////////////////////////////////////
 // HELPER FUNCTIONS
 /////////////////////////////////////
+/**
+ * @param str
+ * @returns {*}
+ */
 function getLeadingWhitespace(str) {
 	return str.match(LEADING_WHITESPACE_REGEXP)[0];
 }
 
+/**
+ * @param options
+ * @param prop
+ * @param defaultValue
+ * @returns {*}
+ */
 function defaults(options, prop, defaultValue) {
 	return options[prop] || defaultValue;
 }
 
+/**
+ * @param options
+ * @param prop
+ * @param defaultVal
+ * @returns {boolean}
+ */
 function bool(options, prop, defaultVal) {
 	return typeof options[prop] === 'undefined' ? defaultVal : Boolean(options[prop]);
 }
 
+/**
+ * @param message
+ * @returns {*}
+ */
 function error(message) {
 	return new gutil.PluginError(PLUGIN_NAME, message);
 }
 
+/**
+ * @param message
+ */
 function log(message) {
 	gutil.log(magenta(PLUGIN_NAME), message);
 }
 
+/**
+ * @param targetPath
+ * @param file
+ */
 function setFullPath(targetPath, file) {
 	var base = path.dirname(targetPath);
 
