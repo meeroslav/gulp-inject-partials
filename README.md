@@ -296,7 +296,7 @@ When `true` ignores missing files during the injection and shows just info messa
 [MIT](http://en.wikipedia.org/wiki/MIT_License) © [Miroslav Jonas](mailto:meeroslav@yahoo.com)
 
 [npm-url]: https://npmjs.org/package/gulp-inject-partials
-[npm-image]: https://badge.fury.io/js/gulp-inject-partials.png
+[npm-image]: https://img.shields.io/npm/v/gulp-inject-partials.png
 
 [travis-url]: http://travis-ci.org/meeroslav/gulp-inject-partials
 [travis-image]: https://travis-ci.org/meeroslav/gulp-inject-partials.svg?branch=master
