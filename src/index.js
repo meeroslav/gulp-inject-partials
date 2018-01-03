@@ -9,7 +9,7 @@
 var through = require('through2');
 //var gutil = require('gulp-util');
 var PluginError = require('plugin-error');
-var log = require('fancy-log');
+var fancyLog = require('fancy-log');
 var colors = require('ansi-colors');
 var vinyl = require('vinyl');
 var path = require('path');
@@ -263,7 +263,7 @@ function error(message) {
  * @param message
  */
 function log(message) {
-	log(magenta(PLUGIN_NAME), message);
+	fancyLog(magenta(PLUGIN_NAME), message);
 }
 
 /**
