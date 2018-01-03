@@ -23,10 +23,11 @@
     "test": "mocha -R spec src/**/*.spec.js"
   },
   "dependencies": {
-    "through2": "^2.0.1",
-    "gulp-util": "^3.0.0",
     "escape-string-regexp": "^1.0.5",
-    "event-stream": "^3.1.0"
+    "event-stream": "^3.1.0",
+    "gulp-util": "^3.0.0",
+    "plugin-error": "^0.1.2",
+    "through2": "^2.0.1"
   },
   "devDependencies": {
     "mocha": "~2.0.1",
