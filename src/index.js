@@ -1,4 +1,8 @@
 'use strict';
+
+//2018-01-02 sc mod: gulp-util deprecation
+//2018-01-02 sc mod: require plugin-error to replace gutil.PluginError
+
 var through = require('through2');
 var gutil = require('gulp-util');
 var path = require('path');
@@ -7,6 +11,7 @@ var escapeStringRegexp = require('escape-string-regexp');
 var magenta = gutil.colors.magenta;
 var cyan = gutil.colors.cyan;
 var red = gutil.colors.red;
+var PluginError = require('plugin-error');
 
 /**
  * Constants
@@ -244,7 +249,7 @@ function bool(options, prop, defaultVal) {
  * @returns {*}
  */
 function error(message) {
-	return new gutil.PluginError(PLUGIN_NAME, message);
+	return new PluginError(PLUGIN_NAME, message);
 }
 
 /**
