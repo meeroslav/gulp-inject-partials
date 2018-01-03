@@ -1,8 +1,13 @@
 'use strict';
 
+//2018-01-02 sc mod: gulp-util deprecation
+//2018-01-02 sc mod: require fancy-log to replace gutil.log
+//2018-01-02 sc mod: require vinyl to replace gutil.File
+
 var fs = require('fs');
 var injectPartials = require('../.');
-var gutil = require('gulp-util');
+//var gutil = require('gulp-util');
+var fancyLog =require('fancy-log');
 var es = require('event-stream');
 var should = require('should');
 var path = require('path');
@@ -12,15 +17,15 @@ describe('gulp-inject-partials', function(){
 	var logOutput = [];
 
 	beforeEach(function () {
-		log = gutil.log;
+		log = fancyLog;
 		logOutput = [];
-		gutil.log = function () {
+		fancyLog = function () {
 			logOutput.push(arguments);
 		};		
 	});
 
 	afterEach(function () {
-		gutil.log = log;
+		fancyLog = log;
 	});
 
 	it('should inject single partial', function (done){
