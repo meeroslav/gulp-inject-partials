@@ -11,7 +11,7 @@ var through = require('through2');
 var PluginError = require('plugin-error');
 var fancyLog = require('fancy-log');
 var colors = require('ansi-colors');
-var vinyl = require('vinyl');
+var File = require('vinyl');
 var path = require('path');
 var fs = require('fs');
 var escapeStringRegexp = require('escape-string-regexp');
@@ -198,7 +198,7 @@ function extractFilePaths(content, targetPath, opt, tagsRegExp) {
 			try {
 				var fileContent = fs.readFileSync(filePath);
 				files.push({
-					file: new vinyl({
+					file: new File({
 						path: filePath,
 						cwd: __dirname,
 						base: path.resolve(__dirname, 'expected', path.dirname(filePath)),
