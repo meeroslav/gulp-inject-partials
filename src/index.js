@@ -4,12 +4,14 @@
 //2018-01-02 sc mod: require plugin-error to replace gutil.PluginError
 //2018-01-02 sc mod: require fancy-log to replace gutil.log
 //2018-01-02 sc mod: require ansi-colors to replace gutil.colors
+//2018-01-02 sc mod: require vinyl to replace gutil.File
 
 var through = require('through2');
 //var gutil = require('gulp-util');
 var PluginError = require('plugin-error');
 var log = require('fancy-log');
 var colors = require('ansi-colors');
+var vinyl = require('vinyl');
 var path = require('path');
 var fs = require('fs');
 var escapeStringRegexp = require('escape-string-regexp');
@@ -196,7 +198,7 @@ function extractFilePaths(content, targetPath, opt, tagsRegExp) {
 			try {
 				var fileContent = fs.readFileSync(filePath);
 				files.push({
-					file: new gutil.File({
+					file: new vinyl({
 						path: filePath,
 						cwd: __dirname,
 						base: path.resolve(__dirname, 'expected', path.dirname(filePath)),
