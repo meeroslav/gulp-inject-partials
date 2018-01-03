@@ -8,7 +8,7 @@ var fs = require('fs');
 var injectPartials = require('../.');
 //var gutil = require('gulp-util');
 var fancyLog =require('fancy-log');
-var vinyl = require('vinyl');
+var File = require('vinyl');
 var es = require('event-stream');
 var should = require('should');
 var path = require('path');
@@ -128,7 +128,7 @@ function src(files, opt) {
 // get expected file
 function expectedFile(file) {
 	var filepath = path.resolve(__dirname, 'expected', file);
-	return new vinyl({
+	return new File({
 		path: filepath,
 		cwd: __dirname,
 		base: path.resolve(__dirname, 'expected', path.dirname(file)),
@@ -139,7 +139,7 @@ function expectedFile(file) {
 // get fixture
 function fixture(file, read) {
 	var filepath = path.resolve(__dirname, 'fixtures', file);
-	return new vinyl({
+	return new File({
 		path: filepath,
 		cwd: __dirname,
 		base: path.resolve(__dirname, 'fixtures', path.dirname(file)),
