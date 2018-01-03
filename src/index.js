@@ -2,6 +2,7 @@
 
 //2018-01-02 sc mod: gulp-util deprecation
 //2018-01-02 sc mod: require plugin-error to replace gutil.PluginError
+//2018-01-02 sc mod: require fancy-log to replace gutil.log
 
 var through = require('through2');
 var gutil = require('gulp-util');
@@ -12,6 +13,7 @@ var magenta = gutil.colors.magenta;
 var cyan = gutil.colors.cyan;
 var red = gutil.colors.red;
 var PluginError = require('plugin-error');
+var log = require('fancy-log');
 
 /**
  * Constants
@@ -256,7 +258,7 @@ function error(message) {
  * @param message
  */
 function log(message) {
-	gutil.log(magenta(PLUGIN_NAME), message);
+	log(magenta(PLUGIN_NAME), message);
 }
 
 /**
