@@ -23,6 +23,7 @@
     "test": "mocha -R spec src/**/*.spec.js"
   },
   "dependencies": {
+    "ansi-colors": "^1.0.1",
     "escape-string-regexp": "^1.0.5",
     "event-stream": "^3.1.0",
     "fancy-log": "^1.3.2",
