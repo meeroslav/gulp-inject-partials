@@ -3,17 +3,20 @@
 //2018-01-02 sc mod: gulp-util deprecation
 //2018-01-02 sc mod: require plugin-error to replace gutil.PluginError
 //2018-01-02 sc mod: require fancy-log to replace gutil.log
+//2018-01-02 sc mod: require ansi-colors to replace gutil.colors
 
 var through = require('through2');
-var gutil = require('gulp-util');
+//var gutil = require('gulp-util');
+var PluginError = require('plugin-error');
+var log = require('fancy-log');
+var colors = require('ansi-colors');
 var path = require('path');
 var fs = require('fs');
 var escapeStringRegexp = require('escape-string-regexp');
-var magenta = gutil.colors.magenta;
-var cyan = gutil.colors.cyan;
-var red = gutil.colors.red;
-var PluginError = require('plugin-error');
-var log = require('fancy-log');
+var magenta = colors.magenta;
+var cyan = colors.cyan;
+var red = colors.red;
+
 
 /**
  * Constants
