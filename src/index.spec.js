@@ -18,15 +18,15 @@ describe('gulp-inject-partials', function(){
 	var logOutput = [];
 
 	beforeEach(function () {
-		log = fancyLog;
+		log = fancyLog.log;
 		logOutput = [];
-		fancyLog = function () {
+		fancyLog.log = function () {
 			logOutput.push(arguments);
 		};		
 	});
 
 	afterEach(function () {
-		fancyLog = log;
+		fancyLog.log = log;
 	});
 
 	it('should inject single partial', function (done){
