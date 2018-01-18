@@ -3,6 +3,7 @@ var through = require('through2');
 var gutil = require('gulp-util');
 var path = require('path');
 var fs = require('fs');
+var stripBomBuf = require('strip-bom-buf');
 var escapeStringRegexp = require('escape-string-regexp');
 var magenta = gutil.colors.magenta;
 var cyan = gutil.colors.cyan;
@@ -184,7 +185,7 @@ function extractFilePaths(content, targetPath, opt, tagsRegExp) {
 			var fileUrl = tagsRegExp.startex.exec(tagMatch)[1];
 			var filePath = setFullPath(targetPath, opt.prefix + fileUrl);
 			try {
-				var fileContent = fs.readFileSync(filePath);
+				var fileContent = stripBomBuf(fs.readFileSync(filePath));
 				files.push({
 					file: new gutil.File({
 						path: filePath,
