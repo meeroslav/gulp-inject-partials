@@ -7,3 +7,4 @@ node_modules/
 npm-debug.log
 Desktop.ini
 Thumbs.db
+package-lock.json
