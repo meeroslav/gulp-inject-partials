@@ -1,19 +1,13 @@
 'use strict';
 
-//2018-01-02 sc mod: gulp-util deprecation
-//2018-01-02 sc mod: require plugin-error to replace gutil.PluginError
-//2018-01-02 sc mod: require fancy-log to replace gutil.log
-//2018-01-02 sc mod: require ansi-colors to replace gutil.colors
-//2018-01-02 sc mod: require vinyl to replace gutil.File
-
 var through = require('through2');
-//var gutil = require('gulp-util');
 var PluginError = require('plugin-error');
 var fancyLog = require('fancy-log');
 var colors = require('ansi-colors');
 var File = require('vinyl');
 var path = require('path');
 var fs = require('fs');
+var stripBomBuf = require('strip-bom-buf');
 var escapeStringRegexp = require('escape-string-regexp');
 var magenta = colors.magenta;
 var cyan = colors.cyan;
@@ -196,7 +190,7 @@ function extractFilePaths(content, targetPath, opt, tagsRegExp) {
 			var fileUrl = tagsRegExp.startex.exec(tagMatch)[1];
 			var filePath = setFullPath(targetPath, opt.prefix + fileUrl);
 			try {
-				var fileContent = fs.readFileSync(filePath);
+				var fileContent = stripBomBuf(fs.readFileSync(filePath));
 				files.push({
 					file: new File({
 						path: filePath,
