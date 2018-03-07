@@ -1,28 +1,24 @@
 'use strict';
 
-var through = require('through2');
-var PluginError = require('plugin-error');
-var fancyLog = require('fancy-log');
-var colors = require('ansi-colors');
-var File = require('vinyl');
-var path = require('path');
-var fs = require('fs');
-var stripBomBuf = require('strip-bom-buf');
-var escapeStringRegexp = require('escape-string-regexp');
-var magenta = colors.magenta;
-var cyan = colors.cyan;
-var red = colors.red;
-
+const through = require('through2');
+const PluginError = require('plugin-error');
+const fancyLog = require('fancy-log');
+const colors = require('ansi-colors');
+const File = require('vinyl');
+const path = require('path');
+const fs = require('fs');
+const stripBomBuf = require('strip-bom-buf');
+const escapeStringRegexp = require('escape-string-regexp');
 
 /**
  * Constants
  */
-var PLUGIN_NAME = 'gulp-inject-partials';
-var DEFAULT_START = '<!-- partial:{{path}} -->';
-var DEFAULT_END = '<!-- partial -->';
-var FILE_PATH_REGEX = "((\/|\\.\/)?((\\.\\.\/)+)?((\\w|\\-)(\\.(\\w|\\-))?)+((\/((\\w|\\-)(\\.(\\w|\\-))?)+)+)?)";
-var PATH_REGEX = /\\\{\\\{path\\\}\\\}/; // ugly I know
-var LEADING_WHITESPACE_REGEXP = /^\s*/;
+const PLUGIN_NAME = 'gulp-inject-partials';
+const DEFAULT_START = '<!-- partial:{{path}} -->';
+const DEFAULT_END = '<!-- partial -->';
+const FILE_PATH_REGEX = "((\/|\\.\/)?((\\.\\.\/)+)?((\\w|\\-)(\\.(\\w|\\-))?)+((\/((\\w|\\-)(\\.(\\w|\\-))?)+)+)?)";
+const PATH_REGEX = /\\{\\{path\\}\\}/; // ugly I know
+const LEADING_WHITESPACE_REGEXP = /^\s*/;
 
 module.exports = function(opt) {
 	opt = opt || {};
@@ -51,7 +47,7 @@ module.exports = function(opt) {
 		}
 
 		try {
-			var tagsRegExp = getRegExpTags(opt, null);
+			const tagsRegExp = getRegExpTags(opt, null);
 			target.contents = processContent(target, opt, tagsRegExp, [target.path]);
 			this.push(target);
 			return cb();
@@ -75,22 +71,27 @@ module.exports = function(opt) {
  * @returns {Buffer}
  */
 function processContent(target, opt, tagsRegExp, listOfFiles){
-	var targetContent = String(target.contents);
-	var targetPath = target.path;
-	var files = extractFilePaths(targetContent, targetPath, opt, tagsRegExp);
+	let targetContent = String(target.contents);
+	const targetPath = target.path;
+	const files = extractFilePaths(targetContent, targetPath, opt, tagsRegExp);
+
 	// recursively process files
 	files.forEach(function(fileData){
 		if (listOfFiles.indexOf(fileData.file.path) !== -1) {
 			throw error("Circular definition found. File: " + fileData.file.path + " referenced in a child file.");
 		}
 		listOfFiles.push(fileData.file.path);
-		var content = processContent(fileData.file, opt, tagsRegExp, listOfFiles);
+		const content = processContent(fileData.file, opt, tagsRegExp, listOfFiles);
 		listOfFiles.pop();
 
 		targetContent = inject(targetContent, String(content), opt, fileData.tags);
 	});
 	if (listOfFiles.length === 1 && !opt.quiet && files.length) {
-		log(cyan(files.length) + ' partials injected into ' + magenta(targetPath) + '.');
+		log(
+			colors.cyan(files.length.toString()) +
+      ' partials injected into ' +
+      colors.magenta(targetPath) +
+      '.');
 	}
 	return new Buffer(targetContent);
 }
@@ -106,10 +107,10 @@ function processContent(target, opt, tagsRegExp, listOfFiles){
  * @returns {String}
  */
 function inject(targetContent, sourceContent, opt, tagsRegExp){
-	var startTag = tagsRegExp.start;
-	var endTag = tagsRegExp.end;
-	var startMatch;
-	var endMatch;
+	const startTag = tagsRegExp.start;
+  const endTag = tagsRegExp.end;
+  let startMatch;
+	let endMatch;
 
 	while ((startMatch = startTag.exec(targetContent)) !== null) {
 		// Take care of content length change
@@ -118,9 +119,9 @@ function inject(targetContent, sourceContent, opt, tagsRegExp){
 		if (!endMatch) {
 			throw error('Missing end tag for start tag: ' + startMatch[0]);
 		}
-		var toInject = [sourceContent];
+		const toInject = [sourceContent];
 		// content part before start tag
-		var newContents = targetContent.slice(0, startMatch.index);
+		let newContent = targetContent.slice(0, startMatch.index);
 
 		if (opt.removeTags) {
 			// Take care of content length change
@@ -130,14 +131,14 @@ function inject(targetContent, sourceContent, opt, tagsRegExp){
 			toInject.unshift(startMatch[0]);
 			toInject.push(endMatch[0]);
 		}
-		var previousInnerContent = targetContent.substring(startTag.lastIndex, endMatch.index);
-		var indent = getLeadingWhitespace(previousInnerContent);
+		const previousInnerContent = targetContent.substring(startTag.lastIndex, endMatch.index);
+		const indent = getLeadingWhitespace(previousInnerContent);
 		// add new content
-		newContents += toInject.join(indent);
+		newContent += toInject.join(indent);
 		// append rest of target file
-		newContents += targetContent.slice(endTag.lastIndex);
+		newContent += targetContent.slice(endTag.lastIndex);
 		// replace old content with new
-		targetContent = newContents;
+		targetContent = newContent;
 	}
 	startTag.lastIndex = 0;
 	endTag.lastIndex = 0;
@@ -180,17 +181,15 @@ function getRegExpTags(opt, fileUrl) {
  * @returns {Array}
  */
 function extractFilePaths(content, targetPath, opt, tagsRegExp) {
-	var files = [];
-	var tagMatches;
+	const files = [];
 
-	// get all start matches
-	tagMatches = content.match(tagsRegExp.start);
+	const tagMatches = content.match(tagsRegExp.start);
 	if (tagMatches) {
 		tagMatches.forEach(function(tagMatch){
-			var fileUrl = tagsRegExp.startex.exec(tagMatch)[1];
-			var filePath = setFullPath(targetPath, opt.prefix + fileUrl);
+			const fileUrl = tagsRegExp.startex.exec(tagMatch)[1];
+			const filePath = setFullPath(targetPath, opt.prefix + fileUrl);
 			try {
-				var fileContent = stripBomBuf(fs.readFileSync(filePath));
+				const fileContent = stripBomBuf(fs.readFileSync(filePath));
 				files.push({
 					file: new File({
 						path: filePath,
@@ -202,7 +201,7 @@ function extractFilePaths(content, targetPath, opt, tagsRegExp) {
 				});
 			} catch (e) {
 			  if (opt.ignoreError) {
-          log(red(filePath + ' not found.'));
+          log(colors.red(filePath + ' not found.'));
         } else {
           throw error(filePath + ' not found.');
         }
@@ -257,7 +256,7 @@ function error(message) {
  * @param message
  */
 function log(message) {
-	fancyLog(magenta(PLUGIN_NAME), message);
+	fancyLog(colors.magenta(PLUGIN_NAME), message);
 }
 
 /**
@@ -265,7 +264,7 @@ function log(message) {
  * @param file
  */
 function setFullPath(targetPath, file) {
-	var base = path.dirname(targetPath);
+	const base = path.dirname(targetPath);
 
 	return path.resolve(base, file);
 }
