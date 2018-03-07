@@ -1,8 +1,14 @@
 'use strict';
 
+//2018-01-02 sc mod: gulp-util deprecation
+//2018-01-02 sc mod: require fancy-log to replace gutil.log
+//2018-01-02 sc mod: require vinyl to replace gutil.File
+
 var fs = require('fs');
 var injectPartials = require('../.');
-var gutil = require('gulp-util');
+//var gutil = require('gulp-util');
+var fancyLog =require('fancy-log');
+var File = require('vinyl');
 var es = require('event-stream');
 var should = require('should');
 var path = require('path');
@@ -12,15 +18,15 @@ describe('gulp-inject-partials', function(){
 	var logOutput = [];
 
 	beforeEach(function () {
-		log = gutil.log;
+		log = fancyLog.log;
 		logOutput = [];
-		gutil.log = function () {
+		fancyLog.log = function () {
 			logOutput.push(arguments);
 		};		
 	});
 
 	afterEach(function () {
-		gutil.log = log;
+		fancyLog.log = log;
 	});
 
 	it('should inject single partial', function (done){
@@ -108,7 +114,7 @@ describe('gulp-inject-partials', function(){
 
 		streamShouldContain(stream, ['template9.html'], done);
 	});
-	it('should inject single partial with UTF-8 BOM', function (done){
+  it('should inject single partial with UTF-8 BOM', function (done){
 		var stream = src(['templateBOM.html'], {read: true})
 		.pipe(injectPartials());
 		
@@ -128,7 +134,7 @@ function src(files, opt) {
 // get expected file
 function expectedFile(file) {
 	var filepath = path.resolve(__dirname, 'expected', file);
-	return new gutil.File({
+	return new File({
 		path: filepath,
 		cwd: __dirname,
 		base: path.resolve(__dirname, 'expected', path.dirname(file)),
@@ -139,7 +145,7 @@ function expectedFile(file) {
 // get fixture
 function fixture(file, read) {
 	var filepath = path.resolve(__dirname, 'fixtures', file);
-	return new gutil.File({
+	return new File({
 		path: filepath,
 		cwd: __dirname,
 		base: path.resolve(__dirname, 'fixtures', path.dirname(file)),

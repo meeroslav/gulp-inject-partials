@@ -1,13 +1,18 @@
 'use strict';
+
 var through = require('through2');
-var gutil = require('gulp-util');
+var PluginError = require('plugin-error');
+var fancyLog = require('fancy-log');
+var colors = require('ansi-colors');
+var File = require('vinyl');
 var path = require('path');
 var fs = require('fs');
 var stripBomBuf = require('strip-bom-buf');
 var escapeStringRegexp = require('escape-string-regexp');
-var magenta = gutil.colors.magenta;
-var cyan = gutil.colors.cyan;
-var red = gutil.colors.red;
+var magenta = colors.magenta;
+var cyan = colors.cyan;
+var red = colors.red;
+
 
 /**
  * Constants
@@ -187,7 +192,7 @@ function extractFilePaths(content, targetPath, opt, tagsRegExp) {
 			try {
 				var fileContent = stripBomBuf(fs.readFileSync(filePath));
 				files.push({
-					file: new gutil.File({
+					file: new File({
 						path: filePath,
 						cwd: __dirname,
 						base: path.resolve(__dirname, 'expected', path.dirname(filePath)),
@@ -245,14 +250,14 @@ function bool(options, prop, defaultVal) {
  * @returns {*}
  */
 function error(message) {
-	return new gutil.PluginError(PLUGIN_NAME, message);
+	return new PluginError(PLUGIN_NAME, message);
 }
 
 /**
  * @param message
  */
 function log(message) {
-	gutil.log(magenta(PLUGIN_NAME), message);
+	fancyLog(magenta(PLUGIN_NAME), message);
 }
 
 /**
