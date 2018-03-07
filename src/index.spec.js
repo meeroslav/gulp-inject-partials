@@ -108,6 +108,12 @@ describe('gulp-inject-partials', function(){
 
 		streamShouldContain(stream, ['template9.html'], done);
 	});
+	it('should inject single partial with UTF-8 BOM', function (done){
+		var stream = src(['templateBOM.html'], {read: true})
+		.pipe(injectPartials());
+		
+		streamShouldContain(stream, ['templateBOM.html'], done);
+	});
 });
 
 // helpers

@@ -26,7 +26,8 @@
     "through2": "^2.0.1",
     "gulp-util": "^3.0.0",
     "escape-string-regexp": "^1.0.5",
-    "event-stream": "^3.1.0"
+    "event-stream": "^3.1.0",
+    "strip-bom-buf": "^1.0.0"
   },
   "devDependencies": {
     "mocha": "~2.0.1",
