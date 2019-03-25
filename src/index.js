@@ -20,7 +20,7 @@ const FILE_PATH_REGEX = "((\/|\\.\/)?((\\.\\.\/)+)?((\\w|\\-)(\\.(\\w|\\-))?)+((
 const PATH_REGEX = /\\{\\{path\\}\\}/; // ugly I know
 const LEADING_WHITESPACE_REGEXP = /^\s*/;
 
-module.exports = function(opt) {
+module.exports = function (opt) {
 	opt = opt || {};
 
 	opt.start = defaults(opt, 'start', DEFAULT_START);
@@ -37,7 +37,7 @@ module.exports = function(opt) {
    * @param cb
    * @returns {*}
    */
-  function handleStream(target, encoding, cb){
+	function handleStream(target, encoding, cb) {
 		if (target.isNull()) {
 			return cb(null, target);
 		}
@@ -51,7 +51,7 @@ module.exports = function(opt) {
 			target.contents = processContent(target, opt, tagsRegExp, [target.path]);
 			this.push(target);
 			return cb();
-		} catch(err) {
+		} catch (err) {
 			this.emit('error', err);
 			return cb();
 		}
@@ -70,13 +70,13 @@ module.exports = function(opt) {
  * @param {Array} listOfFiles
  * @returns {Buffer}
  */
-function processContent(target, opt, tagsRegExp, listOfFiles){
+function processContent(target, opt, tagsRegExp, listOfFiles) {
 	let targetContent = String(target.contents);
 	const targetPath = target.path;
 	const files = extractFilePaths(targetContent, targetPath, opt, tagsRegExp);
 
 	// recursively process files
-	files.forEach(function(fileData){
+	files.forEach(function (fileData) {
 		if (listOfFiles.indexOf(fileData.file.path) !== -1) {
 			throw error("Circular definition found. File: " + fileData.file.path + " referenced in a child file.");
 		}
@@ -89,11 +89,11 @@ function processContent(target, opt, tagsRegExp, listOfFiles){
 	if (listOfFiles.length === 1 && !opt.quiet && files.length) {
 		log(
 			colors.cyan(files.length.toString()) +
-      ' partials injected into ' +
-      colors.magenta(targetPath) +
-      '.');
+			' partials injected into ' +
+			colors.magenta(targetPath) +
+			'.');
 	}
-	return new Buffer(targetContent);
+	return new Buffer.from(targetContent);
 }
 
 /**
@@ -106,10 +106,10 @@ function processContent(target, opt, tagsRegExp, listOfFiles){
  * @param {Object} tagsRegExp
  * @returns {String}
  */
-function inject(targetContent, sourceContent, opt, tagsRegExp){
+function inject(targetContent, sourceContent, opt, tagsRegExp) {
 	const startTag = tagsRegExp.start;
-  const endTag = tagsRegExp.end;
-  let startMatch;
+	const endTag = tagsRegExp.end;
+	let startMatch;
 	let endMatch;
 
 	while ((startMatch = startTag.exec(targetContent)) !== null) {
@@ -185,7 +185,7 @@ function extractFilePaths(content, targetPath, opt, tagsRegExp) {
 
 	const tagMatches = content.match(tagsRegExp.start);
 	if (tagMatches) {
-		tagMatches.forEach(function(tagMatch){
+		tagMatches.forEach(function (tagMatch) {
 			const fileUrl = tagsRegExp.startex.exec(tagMatch)[1];
 			const filePath = setFullPath(targetPath, opt.prefix + fileUrl);
 			try {
@@ -200,11 +200,11 @@ function extractFilePaths(content, targetPath, opt, tagsRegExp) {
 					tags: getRegExpTags(opt, fileUrl)
 				});
 			} catch (e) {
-			  if (opt.ignoreError) {
-          log(colors.red(filePath + ' not found.'));
-        } else {
-          throw error(filePath + ' not found.');
-        }
+				if (opt.ignoreError) {
+					log(colors.red(filePath + ' not found.'));
+				} else {
+					throw error(filePath + ' not found.');
+				}
 			}
 			// reset the regex
 			tagsRegExp.startex.lastIndex = 0;
