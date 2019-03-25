@@ -23,21 +23,21 @@
     "test": "mocha -R spec src/**/*.spec.js"
   },
   "dependencies": {
-    "ansi-colors": "^1.1.0",
+    "ansi-colors": "~3.2.4",
     "escape-string-regexp": "^1.0.5",
     "event-stream": "^4.0.1",
-    "fancy-log": "^1.3.2",
+    "fancy-log": "~1.3.3",
     "plugin-error": "^0.1.2",
-    "through2": "^2.0.1",
-    "vinyl": "^2.1.0",
-    "strip-bom-buf": "^1.0.0"
+    "through2": "^3.0.1",
+    "vinyl": "^2.2.0",
+    "strip-bom-buf": "1.0.0"
   },
   "devDependencies": {
-    "mocha": "~5.0.3",
-    "should": "~13.2.1",
-    "sinon": "^4.4.2",
-    "chai": "^4.1.2",
-    "sinon-chai": "^3.0.0"
+    "mocha": "~6.0.2",
+    "should": "~13.2.3",
+    "sinon": "~7.3.0",
+    "chai": "~4.2.0",
+    "sinon-chai": "~3.3.0"
   },
   "engines": {
     "node": ">=5"
