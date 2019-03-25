@@ -14,12 +14,14 @@ const sinonChai = require('sinon-chai');
 chai.use(sinonChai);
 
 describe('gulp-inject-partials', function () {
-  beforeEach(function() {
-    sinon.spy(console, 'log');
+  let consoleSpy;
+
+  beforeEach(function () {
+    consoleSpy = sinon.spy(process.stdout, 'write');
   });
 
-  afterEach(function() {
-    console.log.restore();
+  afterEach(function () {
+    consoleSpy.restore();
   });
 
   it('should inject single partial', function (done) {
@@ -87,7 +89,7 @@ describe('gulp-inject-partials', function () {
     });
 
     stream.on('end', function () {
-      expect(console.log).not.to.be.called;
+      expect(consoleSpy).not.to.be.called;
       done();
     });
   });
@@ -99,7 +101,7 @@ describe('gulp-inject-partials', function () {
     });
 
     stream.on('end', function () {
-      expect(console.log).to.be.called;
+      expect(consoleSpy).to.be.called;
       done();
     });
   });
